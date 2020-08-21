@@ -6,6 +6,7 @@ import android.databinding.ObservableBoolean;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.mvvm.learn.activity.TabBarActivity;
 import com.mvvm.learn.entity.FormEntity;
 import com.mvvm.learn.fragment.NetWorkFragment;
 
@@ -46,7 +47,7 @@ public class MainViewModel extends BaseViewModel {
     public BindingCommand startTabBarClick = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
-//            startActivity(TabBarActivity.class);
+            startActivity(TabBarActivity.class);
         }
     });
     //ViewPager绑定

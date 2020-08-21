@@ -3,6 +3,7 @@ package com.mvvm.learn.vm;
 import android.app.Application;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import com.mvvm.learn.R;
 import com.mvvm.learn.BR;
@@ -95,6 +96,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
             deleteItemLiveData.call();
         }
     });
+    private long startTime = 0;
     /**
      * 网络请求方法，在ViewModel中调用Model层，通过Okhttp+Retrofit+RxJava发起请求
      */
@@ -107,6 +109,7 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
+                        startTime = System.currentTimeMillis();
                         showDialog("正在请求...");
                     }
                 })
@@ -141,10 +144,23 @@ public class NetWorkViewModel extends BaseViewModel<DemoRepository> {
 
                     @Override
                     public void onComplete() {
-                        //关闭对话框
-                        dismissDialog();
-                        //请求刷新完成收回
-                        uc.finishRefreshing.call();
+                        long diff = System.currentTimeMillis()-startTime;
+                        if (diff > 1500){
+                            //关闭对话框
+                            dismissDialog();
+                            //请求刷新完成收回
+                            uc.finishRefreshing.call();
+                        } else {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //关闭对话框
+                                    dismissDialog();
+                                    //请求刷新完成收回
+                                    uc.finishRefreshing.call();
+                                }
+                            },1500 - diff);
+                        }
                     }
                 });
     }

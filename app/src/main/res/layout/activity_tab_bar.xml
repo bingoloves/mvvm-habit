@@ -28,6 +28,6 @@
             android:id="@+id/pager_bottom_tab"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            app:elevation="8dp" />
+            app:elevation="8dp"/>
     </LinearLayout>
 </layout>

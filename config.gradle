@@ -61,6 +61,8 @@ ext {
             "MVVMHabit"                            : "com.github.goldze:MVVMHabit:3.1.6",
             //TwinklingRefreshLayout
             "TwinkRefresh"                         : "com.lcodecorex:tkrefreshlayout:1.0.7",
+            //简单的design风格的弹窗 里面的checkbox不错
+            "material-dialog"                      : "com.android.design:MaterialDialog:1.1.5",
     ]
 }
 

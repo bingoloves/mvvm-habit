@@ -12,6 +12,8 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.footer.LoadingView;
+import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.mvvm.learn.BR;
 import com.mvvm.learn.R;
 import com.mvvm.learn.databinding.FragmentNetworkBinding;
@@ -79,16 +81,14 @@ public class NetWorkFragment extends BaseFragment<FragmentNetworkBinding, NetWor
                 binding.twinklingRefreshLayout.finishLoadmore();
             }
         });
-//        binding.twinklingRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
-//            @Override
-//            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-//
-//            }
-//
-//            @Override
-//            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
-//            }
-//        });
+        //下拉刷新头部view设置
+        SinaRefreshView headerView = new SinaRefreshView(getContext());
+        headerView.setArrowResource(R.drawable.ic_arrow);
+        binding.twinklingRefreshLayout.setHeaderView(headerView);
+        //上拉加载底部view设置
+        LoadingView loadingView = new LoadingView(getContext());
+        binding.twinklingRefreshLayout.setBottomView(loadingView);
+
         //监听删除条目
         viewModel.deleteItemLiveData.observe(this, new Observer<NetWorkItemViewModel>() {
             @Override
